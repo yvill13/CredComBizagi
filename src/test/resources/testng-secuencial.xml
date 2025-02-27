@@ -1,0 +1,7 @@
+<suite name="Suite Secuencial" parallel="none">
+    <test name="Pruebas de HU01">
+        <classes>
+            <class name="tests.HU01"/>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,8 @@
+<suite name="Bizagi Tests" parallel="methods" thread-count="13">
+    <test name="Pruebas de HU01 y HU02">
+        <classes>
+            <class name="tests.HU01"/>
+            <!--<class name="tests.HU02"/> -->
+        </classes>
+    </test>
+</suite>
