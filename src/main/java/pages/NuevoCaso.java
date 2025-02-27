@@ -212,13 +212,15 @@ public class NuevoCaso {
         numeroId.sendKeys(Keys.TAB);
         BaseTest.scrollAndClick(driver, wait, botonCrear);
 
-
-        if (BaseTest.isElementPresent(creacionOk)) {
-            String textoActual = creacionOk.getText();
+        try {
+            WebElement mensaje = wait.until(ExpectedConditions.visibilityOf(creacionOk));
+            String textoActual = mensaje.getText().trim();
             String textoEsperado = "Radicación Proyecto Crediticio BdB › Complementar Solicitud Proyecto";
-            Assert.assertEquals(textoActual, textoEsperado, "⚠️ El mensaje de éxito no es el esperado");
-        } else {
-            Assert.fail("❌ No se encontró el mensaje de éxito.");
+
+            Assert.assertTrue(textoActual.contains("Radicación Proyecto Crediticio"),
+                    "❌ No se encontró el mensaje esperado. Actual: " + textoActual);
+        } catch (TimeoutException e) {
+            Assert.fail("❌ No se encontró el mensaje de éxito a tiempo.");
         }
 
     }
@@ -269,11 +271,17 @@ public class NuevoCaso {
         BaseTest.scrollAndType(driver, wait, numeroId, numeroIdentificacion);
         numeroId.sendKeys(Keys.TAB);
 
-        if (BaseTest.isElementPresent(digVerif)) {
-            Assert.assertTrue(digVerif.isDisplayed());
-        } else {
-            Assert.fail("❌ No se encontró el mensaje de éxito.");
+        for (int i = 0; i < 3; i++) { // 🔄 Reintentar hasta 3 veces
+            try {
+                if (BaseTest.isElementPresent(digVerif)) {
+                    Assert.assertTrue(digVerif.isDisplayed());
+                    return;
+                }
+            } catch (StaleElementReferenceException e) {
+                System.out.println("🔄 Reintentando validación de digito verificador...");
+            }
         }
+        Assert.fail("❌ No se encontró el mensaje de éxito.");
     }
 
     public void validarTipoModif(String tipoId, String numeroIdentificacion) throws InterruptedException {

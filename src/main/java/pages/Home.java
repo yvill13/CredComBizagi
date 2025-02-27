@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import utils.BaseTest;
 
 import java.time.Duration;
@@ -53,8 +55,20 @@ public class Home {
 
     public void cerrarSesion() {
 
-        BaseTest.scrollAndClick(driver,wait,config);
-        BaseTest.scrollAndClick(driver,wait,logout);
+        for (int i = 0; i < 2; i++) { // 🔄 Intenta hasta 2 veces
+            BaseTest.scrollAndClick(driver, wait, config);
+            BaseTest.scrollAndClick(driver, wait, logout);
+
+            // 🔍 Espera hasta que la pantalla de login reaparezca
+            if (wait.until(ExpectedConditions.visibilityOf(correctLog)) != null) {
+                System.out.println("✅ Logout exitoso");
+                return;
+            }
+
+            System.out.println("🔄 Reintentando logout...");
+        }
+        Assert.fail("❌ No se logró cerrar sesión.");
+
     }
 
 

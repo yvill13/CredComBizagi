@@ -17,7 +17,7 @@ public class LoginBizagi {
 
     public LoginBizagi() {
         this.driver = utils.BaseTest.getDriver();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         PageFactory.initElements(driver, this);
     }
 
@@ -25,13 +25,13 @@ public class LoginBizagi {
     private WebElement usernameInput;
 
     @FindBy(xpath = "//*[@id='idSIButton9']")
-    private WebElement nextButton;
+    private WebElement nextButtonUsername;
 
     @FindBy(xpath = "//*[@id='i0118']")
     private WebElement passwordInput;
 
     @FindBy(xpath = "//*[@id='idSIButton9']")
-    private WebElement loginButton;
+    private WebElement nextButtonPassword;
 
     @FindBy(xpath = "//*[@id='menuListInbox']/a/span[2]")
     private WebElement exitoso;
@@ -48,9 +48,9 @@ public class LoginBizagi {
     public void login(String username, String password) {
 
         BaseTest.scrollAndType(driver, wait, usernameInput, username);
-        BaseTest.scrollAndClick(driver, wait, nextButton);
+        BaseTest.scrollAndClick(driver, wait, nextButtonUsername);
         BaseTest.scrollAndType(driver, wait, passwordInput, password);
-        BaseTest.scrollAndClick(driver, wait, loginButton);
+        BaseTest.scrollAndClick(driver, wait, nextButtonPassword);
     }
 
 

@@ -1,8 +1,18 @@
-<suite name="Bizagi Tests" parallel="methods" thread-count="13">
-    <test name="Pruebas de HU01 y HU02">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Bizagi Tests" parallel="tests" thread-count="3">
+
+    <!-- 🔹 Pruebas de HU01 -->
+    <test name="Pruebas HU01">
         <classes>
             <class name="tests.HU01"/>
-            <!--<class name="tests.HU02"/> -->
         </classes>
     </test>
+
+    <!-- 🔹 Pruebas de HU02 -->
+    <test name="Pruebas HU02">
+        <classes>
+            <class name="tests.HU02"/>
+        </classes>
+    </test>
+
 </suite>
